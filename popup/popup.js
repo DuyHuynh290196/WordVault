@@ -1,3 +1,20 @@
+function getFriendlyError(err) {
+  const msg = (err?.message || err || '').toString().toLowerCase();
+  if (msg.includes('networkerror') || msg.includes('failed to fetch') || msg.includes('load failed'))
+    return 'No internet connection.';
+  if (msg.includes('429') || msg.includes('rate limit'))
+    return 'Too many requests. Wait a moment and try again.';
+  if (msg.includes('http error 5') || msg.includes('unavailable'))
+    return 'Translation service unavailable. Try again later.';
+  if (msg.includes('translation failed'))
+    return 'Translation failed. Check your language settings.';
+  if (msg.includes('extension context') || msg.includes('invalidated'))
+    return 'Extension updated. Please refresh the page.';
+  if (msg.includes('could not establish') || msg.includes('receiving end'))
+    return 'Could not connect. Please refresh the page.';
+  return 'Something went wrong. Please try again.';
+}
+
 const LANGUAGES = [
   { code: 'en', name: 'English', flag: '🇬🇧' },
   { code: 'vi', name: 'Tiếng Việt', flag: '🇻🇳' },
@@ -287,7 +304,7 @@ async function init() {
         preview.textContent = `→ ${result}`;
       } catch (err) {
         preview.className = 'translation-preview error';
-        preview.textContent = `⚠️ ${err.message}`;
+        preview.textContent = `⚠️ ${getFriendlyError(err)}`;
         lastTranslated = '';
       }
     }, 600);
@@ -328,7 +345,7 @@ async function init() {
       setTimeout(() => preview.classList.add('hidden'), 2000);
     } catch (err) {
       preview.className = 'translation-preview error';
-      preview.textContent = `⚠️ ${err.message}`;
+      preview.textContent = `⚠️ ${getFriendlyError(err)}`;
     }
     saveBtn.disabled = false;
     saveBtn.textContent = 'Save';

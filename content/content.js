@@ -1,3 +1,16 @@
+function getFriendlyError(err) {
+  const msg = (err?.message || err || '').toString().toLowerCase();
+  if (msg.includes('networkerror') || msg.includes('failed to fetch') || msg.includes('load failed'))
+    return 'No internet connection.';
+  if (msg.includes('429') || msg.includes('rate limit'))
+    return 'Too many requests. Wait a moment.';
+  if (msg.includes('translation failed'))
+    return 'Translation failed. Try again.';
+  if (msg.includes('extension context') || msg.includes('invalidated') || msg.includes('receiving end'))
+    return 'Please refresh the page.';
+  return 'Something went wrong. Please try again.';
+}
+
 // ── Toast ────────────────────────────────────────────────────────────────────
 let toastEl = null;
 let toastTimer = null;
@@ -59,6 +72,8 @@ function playSuccessSound() {
   } catch (_) {}
 }
 
+window.__wordvaultPlaySound = () => { if (featureSettings.soundEnabled) playSuccessSound(); };
+
 // ── Quick-save bubble (double-click) ─────────────────────────────────────────
 let bubble = null;
 let bubbleTimer = null;
@@ -97,7 +112,7 @@ function showBubble(x, y, word, context) {
 
     try {
       const res = await chrome.runtime.sendMessage({
-        type: 'SAVE_WORD_KNOWN',
+        type: 'SAVE_WORD',
         text: pendingWord,
         context: pendingContext,
         sourceUrl: location.href,
@@ -115,7 +130,7 @@ function showBubble(x, y, word, context) {
         throw new Error(res?.error || 'Failed');
       }
     } catch (err) {
-      showToast(`Error: ${err.message}`, 'error');
+      showToast(getFriendlyError(err), 'error');
       removeBubble();
     }
   });

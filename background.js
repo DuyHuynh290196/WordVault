@@ -1,3 +1,18 @@
+function getFriendlyError(err) {
+  const msg = (err?.message || err || '').toString().toLowerCase();
+  if (msg.includes('networkerror') || msg.includes('failed to fetch') || msg.includes('load failed'))
+    return 'No internet connection.';
+  if (msg.includes('429') || msg.includes('rate limit'))
+    return 'Too many requests. Wait a moment and try again.';
+  if (msg.includes('http error 5') || msg.includes('unavailable'))
+    return 'Translation service unavailable. Try again later.';
+  if (msg.includes('translation failed'))
+    return 'Translation failed. Check your language settings.';
+  if (msg.includes('extension context') || msg.includes('invalidated'))
+    return 'Extension updated. Please refresh the page.';
+  return 'Something went wrong. Please try again.';
+}
+
 const MYMEMORY_URL = 'https://api.mymemory.translated.net/get';
 
 // --- Context Menu ---
@@ -59,7 +74,7 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
 
   if (msg.type === 'TRANSLATE') {
     const { text, sourceLang, targetLang } = msg;
-    translate(text, sourceLang, targetLang).then(sendResponse).catch((err) => sendResponse({ error: err.message }));
+    translate(text, sourceLang, targetLang).then(sendResponse).catch((err) => sendResponse({ error: getFriendlyError(err) }));
     return true;
   }
 
@@ -151,7 +166,8 @@ async function processAndSaveWord(text, tab, settings, context = '', status = 'n
       chrome.scripting.executeScript({
         target: { tabId: tab.id },
         func: (word, trans) => {
-          if (window.__wordvaultShowToast) window.__wordvaultShowToast(`"${word}" → ${trans}`, 'success');
+          if (window.__wordvaultShowToast) window.__wordvaultShowToast(`${word} → ${trans}`, 'success');
+          if (window.__wordvaultPlaySound) window.__wordvaultPlaySound();
         },
         args: [text, translation],
       }).catch(() => {});
@@ -165,10 +181,10 @@ async function processAndSaveWord(text, tab, settings, context = '', status = 'n
         func: (msg) => {
           if (window.__wordvaultShowToast) window.__wordvaultShowToast(msg, 'error');
         },
-        args: [`Error: ${err.message}`],
+        args: [getFriendlyError(err)],
       }).catch(() => {});
     }
-    return { success: false, error: err.message };
+    return { success: false, error: getFriendlyError(err) };
   }
 }
 
