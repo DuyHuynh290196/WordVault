@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WordVault — My Vocabulary</title>
+  <link rel="stylesheet" href="vocabulary.css" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet" />
+</head>
+<body>
+  <div class="container">
+    <header class="page-header">
+      <div class="header-left">
+        <span class="material-icons-round logo-icon">lock</span>
+        <h1>My <span>Vocabulary</span></h1>
+      </div>
+      <div class="header-stats">
+        <span id="h-total" class="h-stat">0 words</span>
+      </div>
+    </header>
+
+    <!-- Toolbar -->
+    <div class="toolbar">
+      <div class="search-wrap">
+        <span class="material-icons-round search-icon">search</span>
+        <input type="text" id="search" placeholder="Search words or translations..." />
+      </div>
+      <select id="filter-status">
+        <option value="">All status</option>
+        <option value="new">New</option>
+        <option value="review">Review</option>
+        <option value="known">Known</option>
+      </select>
+      <select id="filter-lang">
+        <option value="">All languages</option>
+      </select>
+      <button id="btn-clear-all" class="danger-btn">
+        <span class="material-icons-round">delete_sweep</span> Delete All
+      </button>
+    </div>
+
+    <!-- Word list -->
+    <div id="word-list" class="word-list">
+      <div class="empty-state">Loading...</div>
+    </div>
+  </div>
+
+  <!-- Delete confirm modal -->
+  <div id="modal-overlay" class="modal-overlay hidden">
+    <div class="modal">
+      <h3>Delete all words?</h3>
+      <p>This action cannot be undone.</p>
+      <div class="modal-actions">
+        <button id="modal-cancel" class="secondary-btn">Cancel</button>
+        <button id="modal-confirm" class="danger-btn">Delete All</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="vocabulary.js"></script>
+</body>
+</html>

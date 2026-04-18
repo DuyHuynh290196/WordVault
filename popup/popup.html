@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WordVault</title>
+  <link rel="stylesheet" href="popup.css" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet" />
+</head>
+<body>
+  <div class="app">
+    <!-- Header -->
+    <header class="header">
+      <div class="logo">
+        <span class="material-icons-round logo-icon">lock</span>
+        <span class="logo-text">WordVault</span>
+      </div>
+      <button id="settings-btn" class="settings-btn" title="Settings">
+        <span class="material-icons-round">settings</span>
+      </button>
+    </header>
+
+    <!-- Language bar (main view) -->
+    <div id="lang-bar" class="lang-bar">
+      <span id="lang-source" class="lang-tag"></span>
+      <span class="lang-arrow">→</span>
+      <span id="lang-target" class="lang-tag"></span>
+      <button id="btn-change-lang" class="link-btn">Change</button>
+    </div>
+
+    <!-- Settings panel (inline) -->
+    <div id="lang-panel" class="lang-panel hidden">
+      <!-- Language pair -->
+      <div class="settings-section-title">Language</div>
+      <div class="lang-panel-row">
+        <div class="field">
+          <label>Learning</label>
+          <select id="sel-source"></select>
+        </div>
+        <span class="lang-arrow">→</span>
+        <div class="field">
+          <label>Native</label>
+          <select id="sel-target"></select>
+        </div>
+      </div>
+      <div class="preset-row">
+        <button class="preset-btn" data-src="en" data-tgt="vi">EN→VI</button>
+        <button class="preset-btn" data-src="ja" data-tgt="vi">JA→VI</button>
+        <button class="preset-btn" data-src="ko" data-tgt="vi">KO→VI</button>
+        <button class="preset-btn" data-src="zh" data-tgt="vi">ZH→VI</button>
+        <button class="preset-btn" data-src="fr" data-tgt="vi">FR→VI</button>
+        <button class="preset-btn" data-src="de" data-tgt="vi">DE→VI</button>
+      </div>
+
+      <!-- Feature toggles -->
+      <div class="settings-section-title" style="margin-top:8px">Features</div>
+      <div class="toggle-list">
+        <div class="toggle-item">
+          <span class="material-icons-round toggle-icon">touch_app</span>
+          <span class="toggle-label">Double-click to save</span>
+          <label class="switch">
+            <input type="checkbox" id="toggle-dblclick" />
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div class="toggle-item">
+          <span class="material-icons-round toggle-icon">volume_up</span>
+          <span class="toggle-label">Sound on save</span>
+          <label class="switch">
+            <input type="checkbox" id="toggle-sound" />
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div class="toggle-item">
+          <span class="material-icons-round toggle-icon">notifications</span>
+          <span class="toggle-label">Badge count</span>
+          <label class="switch">
+            <input type="checkbox" id="toggle-badge" />
+            <span class="slider"></span>
+          </label>
+        </div>
+      </div>
+
+      <div class="lang-panel-actions">
+        <button id="btn-lang-cancel" class="secondary-btn">Cancel</button>
+        <button id="btn-lang-save" class="primary-btn">Save</button>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats-row">
+      <div class="stat-card">
+        <span class="stat-num" id="stat-total">0</span>
+        <span class="stat-label">Total</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-num new" id="stat-new">0</span>
+        <span class="stat-label">New</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-num review" id="stat-review">0</span>
+        <span class="stat-label">Review</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-num known" id="stat-known">0</span>
+        <span class="stat-label">Known</span>
+      </div>
+    </div>
+
+    <!-- Quick Save -->
+    <div class="quick-save">
+      <div class="input-row">
+        <input type="text" id="input-word" placeholder="Type or paste a word..." autocomplete="off" spellcheck="false" />
+        <button id="btn-save" class="primary-btn">Save</button>
+      </div>
+      <div id="translation-preview" class="translation-preview hidden"></div>
+    </div>
+
+    <!-- Recent Words -->
+    <div class="recent-section">
+      <div class="recent-header">
+        <span class="recent-title">Recent</span>
+        <a href="../vocabulary/vocabulary.html" target="_blank" class="see-all-btn">See all →</a>
+      </div>
+      <div id="recent-list" class="recent-list">
+        <div class="recent-empty">No words yet</div>
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="actions">
+      <a href="../vocabulary/vocabulary.html" target="_blank" class="action-btn">
+        <span class="material-icons-round">menu_book</span> My Vocabulary
+      </a>
+      <button id="btn-flashcard" class="action-btn" disabled title="Coming in Phase 2">
+        <span class="material-icons-round">style</span> Flashcards
+      </button>
+    </div>
+
+    <!-- Tip -->
+    <p class="tip"><span class="material-icons-round" style="font-size:13px;vertical-align:middle;">tips_and_updates</span> Select text → Right-click → Save to WordVault</p>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>

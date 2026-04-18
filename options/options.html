@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WordVault — Settings</title>
+  <link rel="stylesheet" href="options.css" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet" />
+</head>
+<body>
+  <div class="container">
+    <header class="page-header">
+      <span class="material-icons-round logo-icon">lock</span>
+      <h1>WordVault <span>Settings</span></h1>
+    </header>
+
+    <section class="card">
+      <h2>Language Pair</h2>
+      <p class="desc">Choose the language you're learning and your native language.</p>
+
+      <div class="lang-grid">
+        <div class="field">
+          <label for="source-lang">Language I'm learning</label>
+          <select id="source-lang"></select>
+        </div>
+        <div class="arrow-col">→</div>
+        <div class="field">
+          <label for="target-lang">My native language</label>
+          <select id="target-lang"></select>
+        </div>
+      </div>
+
+      <div class="preset-row">
+        <span class="preset-label">Quick presets:</span>
+        <button class="preset-btn" data-src="en" data-tgt="vi">EN → VI</button>
+        <button class="preset-btn" data-src="ja" data-tgt="vi">JA → VI</button>
+        <button class="preset-btn" data-src="ko" data-tgt="vi">KO → VI</button>
+        <button class="preset-btn" data-src="zh" data-tgt="vi">ZH → VI</button>
+        <button class="preset-btn" data-src="fr" data-tgt="vi">FR → VI</button>
+        <button class="preset-btn" data-src="de" data-tgt="vi">DE → VI</button>
+      </div>
+    </section>
+
+    <div class="save-row">
+      <button id="btn-save" class="primary-btn">
+        <span class="material-icons-round">save</span> Save Settings
+      </button>
+      <span id="save-msg" class="save-msg hidden">
+        <span class="material-icons-round">check_circle</span> Saved!
+      </span>
+    </div>
+  </div>
+  <script src="options.js"></script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head><title>Generate Icons</title></head>
+<body>
+<p>Open this file in a browser, then click the button to download icons.</p>
+<button onclick="generate()">Generate & Download Icons</button>
+<script>
+function drawIcon(size) {
+  const canvas = document.createElement('canvas');
+  canvas.width = size; canvas.height = size;
+  const ctx = canvas.getContext('2d');
+
+  // Gradient background
+  const grad = ctx.createLinearGradient(0, 0, size, size);
+  grad.addColorStop(0, '#7c83e8');
+  grad.addColorStop(1, '#a78bfa');
+  ctx.fillStyle = grad;
+  const r = size * 0.18;
+  ctx.beginPath();
+  ctx.moveTo(r, 0); ctx.lineTo(size - r, 0);
+  ctx.quadraticCurveTo(size, 0, size, r);
+  ctx.lineTo(size, size - r);
+  ctx.quadraticCurveTo(size, size, size - r, size);
+  ctx.lineTo(r, size);
+  ctx.quadraticCurveTo(0, size, 0, size - r);
+  ctx.lineTo(0, r);
+  ctx.quadraticCurveTo(0, 0, r, 0);
+  ctx.closePath(); ctx.fill();
+
+  // Lock body
+  ctx.fillStyle = 'white';
+  const lw = size * 0.38, lh = size * 0.28;
+  const lx = (size - lw) / 2, ly = size * 0.46;
+  const lr = size * 0.07;
+  ctx.beginPath();
+  ctx.moveTo(lx + lr, ly); ctx.lineTo(lx + lw - lr, ly);
+  ctx.quadraticCurveTo(lx + lw, ly, lx + lw, ly + lr);
+  ctx.lineTo(lx + lw, ly + lh - lr);
+  ctx.quadraticCurveTo(lx + lw, ly + lh, lx + lw - lr, ly + lh);
+  ctx.lineTo(lx + lr, ly + lh);
+  ctx.quadraticCurveTo(lx, ly + lh, lx, ly + lh - lr);
+  ctx.lineTo(lx, ly + lr);
+  ctx.quadraticCurveTo(lx, ly, lx + lr, ly);
+  ctx.closePath(); ctx.fill();
+
+  // Shackle
+  ctx.strokeStyle = 'white'; ctx.lineWidth = size * 0.09; ctx.lineCap = 'round';
+  const sw = size * 0.22, sh = size * 0.22;
+  const sx = (size - sw) / 2, sy = size * 0.22;
+  ctx.beginPath();
+  ctx.moveTo(sx, sy + sh * 0.6);
+  ctx.lineTo(sx, sy + sh * 0.22);
+  ctx.arc(sx + sw / 2, sy + sh * 0.22, sw / 2, Math.PI, 0, false);
+  ctx.lineTo(sx + sw, sy + sh * 0.6);
+  ctx.stroke();
+
+  return canvas;
+}
+
+function generate() {
+  [16, 32, 48, 128].forEach(size => {
+    const canvas = drawIcon(size);
+    const a = document.createElement('a');
+    a.href = canvas.toDataURL('image/png');
+    a.download = `icon${size}.png`;
+    a.click();
+  });
+}
+</script>
+</body>
+</html>
