@@ -13,6 +13,7 @@ A Chrome extension for saving, translating, and reviewing vocabulary while brows
 - **Customizable** — toggle double-click saving, sound effects, and badge count
 - **Context capture** — automatically saves surrounding text for context when saving from a web page
 - **Duplicate detection** — saves are deduplicated by word and language pair
+- **Flashcards** — review words with flip cards, spaced repetition priority, and keyboard shortcuts
 
 ## Installation
 
@@ -64,14 +65,20 @@ WordVault/
 │   ├── vocabulary.html     # Full vocabulary management page
 │   ├── vocabulary.js       # Search, filter, status management
 │   └── vocabulary.css
+├── flashcard/
+│   ├── flashcard.html      # Flashcard review page
+│   ├── flashcard.js        # Flip cards, spaced repetition, keyboard shortcuts
+│   └── flashcard.css
 ├── options/
 │   ├── options.html        # Settings page
 │   ├── options.js
 │   └── options.css
 ├── utils/
 │   ├── storage.js          # IndexedDB operations (shared)
-│   ├── translate.js        # MyMemory API + language definitions (shared)
-│   └── errors.js           # User-friendly error messages (shared)
+│   ├── translate.js        # Google Translate API + language definitions (shared)
+│   ├── errors.js           # User-friendly error messages (shared)
+│   ├── dom.js              # DOM helpers — $(), escHtml() (shared)
+│   └── sound.js            # Success sound effect (shared)
 └── icons/                  # Extension icons (16, 32, 48, 128px)
 ```
 

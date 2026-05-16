@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WordVault — Flashcards</title>
+  <link rel="stylesheet" href="flashcard.css" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet" />
+</head>
+<body>
+  <div class="container">
+    <header class="page-header">
+      <div class="header-left">
+        <span class="material-icons-round logo-icon">auto_stories</span>
+        <h1>Flash<span>cards</span></h1>
+      </div>
+      <div class="header-right">
+        <a href="../vocabulary/vocabulary.html" class="nav-link" title="My Vocabulary"><span class="material-icons-round">menu_book</span> Vocabulary</a>
+        <span id="progress" class="progress-text">0 / 0</span>
+        <button id="btn-restart" class="icon-btn" title="Restart"><span class="material-icons-round">refresh</span></button>
+        <button id="btn-theme" class="icon-btn" title="Toggle theme"><span class="material-icons-round">dark_mode</span></button>
+      </div>
+    </header>
+
+    <!-- Filter bar -->
+    <div class="filter-bar">
+      <select id="filter-status">
+        <option value="new,review">New & Review</option>
+        <option value="new">New only</option>
+        <option value="review">Review only</option>
+        <option value="">All words</option>
+      </select>
+      <select id="filter-lang">
+        <option value="">All languages</option>
+      </select>
+      <label class="shuffle-label">
+        <input type="checkbox" id="toggle-shuffle" checked />
+        Shuffle
+      </label>
+    </div>
+
+    <!-- Card area -->
+    <div id="card-area" class="card-area">
+      <div id="flashcard" class="flashcard">
+        <div class="card-inner" id="card-inner">
+          <div class="card-front">
+            <div class="card-word" id="card-word"></div>
+            <div class="card-hint" id="card-hint">Click or press Space to flip</div>
+          </div>
+          <div class="card-back">
+            <div class="card-translation" id="card-translation"></div>
+            <div class="card-context" id="card-context"></div>
+            <div class="card-meta" id="card-meta"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Action buttons -->
+    <div id="actions" class="actions hidden">
+      <button id="btn-dont-know" class="action-btn dont-know">
+        <span class="material-icons-round">close</span>
+        Don't know
+      </button>
+      <button id="btn-learning" class="action-btn learning">
+        <span class="material-icons-round">autorenew</span>
+        Learning
+      </button>
+      <button id="btn-got-it" class="action-btn got-it">
+        <span class="material-icons-round">check</span>
+        Got it
+      </button>
+    </div>
+
+    <!-- Empty state -->
+    <div id="empty-state" class="empty-state hidden">
+      <span class="material-icons-round empty-icon">style</span>
+      <h2>No cards to review</h2>
+      <p>Save some words while browsing, then come back here to practice!</p>
+    </div>
+
+    <!-- Done state -->
+    <div id="done-state" class="done-state hidden">
+      <span class="material-icons-round done-icon">celebration</span>
+      <h2>All done!</h2>
+      <p id="done-summary"></p>
+      <button id="btn-review-again" class="primary-btn">Review again</button>
+    </div>
+
+    <!-- Keyboard hints -->
+    <div class="keyboard-hints">
+      <span><kbd>Space</kbd> Flip</span>
+      <span><kbd>1</kbd> Don't know</span>
+      <span><kbd>2</kbd> Learning</span>
+      <span><kbd>3</kbd> Got it</span>
+      <span><kbd>←</kbd><kbd>→</kbd> Navigate</span>
+    </div>
+  </div>
+
+  <script src="../utils/errors.js"></script>
+  <script src="../utils/dom.js"></script>
+  <script src="../utils/sound.js"></script>
+  <script src="../utils/translate.js"></script>
+  <script src="../utils/storage.js"></script>
+  <script src="../utils/theme.js"></script>
+  <script src="flashcard.js"></script>
+</body>
+</html>

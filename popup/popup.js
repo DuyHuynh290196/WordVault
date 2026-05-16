@@ -31,6 +31,9 @@ function openLangPanel() {
   $('toggle-dblclick').checked = features.doubleClickEnabled;
   $('toggle-sound').checked = features.soundEnabled;
   $('toggle-badge').checked = features.badgeEnabled;
+  chrome.storage.local.get('theme', function (data) {
+    $('toggle-theme').checked = (data.theme || 'dark') === 'dark';
+  });
   $('lang-panel').classList.remove('hidden');
   $('lang-bar').classList.add('hidden');
 }
@@ -46,10 +49,12 @@ async function saveSettings() {
   const dblclick = $('toggle-dblclick').checked;
   const sound = $('toggle-sound').checked;
   const badge = $('toggle-badge').checked;
+  const theme = $('toggle-theme').checked ? 'dark' : 'light';
 
   await chrome.storage.local.set({
     sourceLang: src, targetLang: tgt,
     doubleClickEnabled: dblclick, soundEnabled: sound, badgeEnabled: badge,
+    theme: theme,
   });
 
   settings = { sourceLang: src, targetLang: tgt };
@@ -211,6 +216,12 @@ async function init() {
       $('sel-source').value = btn.dataset.src;
       $('sel-target').value = btn.dataset.tgt;
     });
+  });
+
+  $('toggle-theme').addEventListener('change', () => {
+    const theme = $('toggle-theme').checked ? 'dark' : 'light';
+    applyTheme(theme);
+    chrome.storage.local.set({ theme: theme });
   });
 
   // Quick save
