@@ -16,8 +16,8 @@
       </div>
       <div class="header-stats">
         <a href="../flashcard/flashcard.html" class="nav-link" title="Flashcards"><span class="material-icons-round">style</span> Flashcards</a>
-        <span id="h-total" class="h-stat">0 words</span>
         <button id="btn-theme" class="icon-btn" title="Toggle theme"><span class="material-icons-round">dark_mode</span></button>
+        <span id="h-total" class="h-stat">0 words</span>
       </div>
     </header>
 
@@ -35,6 +35,18 @@
       </select>
       <select id="filter-lang">
         <option value="">All languages</option>
+      </select>
+      <select id="filter-date">
+        <option value="">All time</option>
+        <option value="today">Today</option>
+        <option value="7">Last 7 days</option>
+        <option value="30">Last 30 days</option>
+      </select>
+      <select id="sort-order">
+        <option value="newest">Newest first</option>
+        <option value="oldest">Oldest first</option>
+        <option value="az">A → Z</option>
+        <option value="za">Z → A</option>
       </select>
       <button id="btn-clear-all" class="danger-btn">
         <span class="material-icons-round">delete_sweep</span> Delete All

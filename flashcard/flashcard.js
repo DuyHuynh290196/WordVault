@@ -21,6 +21,17 @@ async function buildDeck() {
     words = words.filter((w) => w.sourceLang === langFilter);
   }
 
+  const dateFilter = $('filter-date').value;
+  if (dateFilter) {
+    let dateFrom;
+    if (dateFilter === 'today') {
+      const d = new Date(); d.setHours(0, 0, 0, 0); dateFrom = d.getTime();
+    } else {
+      dateFrom = Date.now() - parseInt(dateFilter) * 86400000;
+    }
+    words = words.filter((w) => w.createdAt >= dateFrom);
+  }
+
   // Spaced repetition priority: new first, then review, then known
   const priority = { new: 0, review: 1, known: 2 };
   words.sort((a, b) => (priority[a.status] ?? 3) - (priority[b.status] ?? 3));
@@ -203,6 +214,7 @@ async function init() {
 
   $('filter-status').addEventListener('change', startSession);
   $('filter-lang').addEventListener('change', startSession);
+  $('filter-date').addEventListener('change', startSession);
   $('toggle-shuffle').addEventListener('change', startSession);
 }
 

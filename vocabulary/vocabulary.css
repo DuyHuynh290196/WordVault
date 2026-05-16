@@ -360,3 +360,36 @@ select:focus { border-color: var(--accent); }
 }
 
 .secondary-btn:hover { background: var(--surface2); }
+
+/* Date group headers */
+.date-header {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 8px 4px 4px;
+  border-bottom: 1px solid var(--border);
+  margin-top: 8px;
+}
+
+.date-header:first-child { margin-top: 0; }
+
+/* Load more */
+.load-more-btn {
+  width: 100%;
+  padding: 12px;
+  background: var(--surface);
+  border: 1.5px dashed var(--border2);
+  border-radius: 10px;
+  color: var(--accent);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.load-more-btn:hover {
+  border-color: var(--accent);
+  background: rgba(16, 185, 129, 0.05);
+}
