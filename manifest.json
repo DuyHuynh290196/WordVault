@@ -18,7 +18,7 @@
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
-      "js": ["content/content.js"],
+      "js": ["utils/errors.js", "utils/sound.js", "content/content.js"],
       "css": ["content/content.css"]
     }
   ],

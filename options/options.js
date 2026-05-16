@@ -1,18 +1,5 @@
-const LANGUAGES = [
-  { code: 'en', name: 'English', flag: '🇬🇧' },
-  { code: 'vi', name: 'Tiếng Việt', flag: '🇻🇳' },
-  { code: 'ja', name: '日本語', flag: '🇯🇵' },
-  { code: 'ko', name: '한국어', flag: '🇰🇷' },
-  { code: 'zh', name: '中文', flag: '🇨🇳' },
-  { code: 'fr', name: 'Français', flag: '🇫🇷' },
-  { code: 'de', name: 'Deutsch', flag: '🇩🇪' },
-  { code: 'es', name: 'Español', flag: '🇪🇸' },
-  { code: 'it', name: 'Italiano', flag: '🇮🇹' },
-  { code: 'pt', name: 'Português', flag: '🇵🇹' },
-];
-
 function populateSelect(id, selected) {
-  const sel = document.getElementById(id);
+  const sel = $(id);
   sel.innerHTML = '';
   LANGUAGES.forEach((lang) => {
     const opt = document.createElement('option');
@@ -24,34 +11,24 @@ function populateSelect(id, selected) {
 }
 
 async function init() {
-  const data = await new Promise((resolve) => {
-    chrome.storage.local.get(['sourceLang', 'targetLang'], resolve);
-  });
+  const data = await chrome.storage.local.get(['sourceLang', 'targetLang']);
 
-  const sourceLang = data.sourceLang || 'en';
-  const targetLang = data.targetLang || 'vi';
+  populateSelect('source-lang', data.sourceLang || 'en');
+  populateSelect('target-lang', data.targetLang || 'vi');
 
-  populateSelect('source-lang', sourceLang);
-  populateSelect('target-lang', targetLang);
-
-  // Preset buttons
   document.querySelectorAll('.preset-btn').forEach((btn) => {
     btn.addEventListener('click', () => {
-      document.getElementById('source-lang').value = btn.dataset.src;
-      document.getElementById('target-lang').value = btn.dataset.tgt;
+      $('source-lang').value = btn.dataset.src;
+      $('target-lang').value = btn.dataset.tgt;
     });
   });
 
-  // Save
-  document.getElementById('btn-save').addEventListener('click', async () => {
-    const newSource = document.getElementById('source-lang').value;
-    const newTarget = document.getElementById('target-lang').value;
-
-    await new Promise((resolve) => {
-      chrome.storage.local.set({ sourceLang: newSource, targetLang: newTarget }, resolve);
+  $('btn-save').addEventListener('click', async () => {
+    await chrome.storage.local.set({
+      sourceLang: $('source-lang').value,
+      targetLang: $('target-lang').value,
     });
-
-    const msg = document.getElementById('save-msg');
+    const msg = $('save-msg');
     msg.classList.remove('hidden');
     setTimeout(() => msg.classList.add('hidden'), 2500);
   });

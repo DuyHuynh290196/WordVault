@@ -4,7 +4,7 @@ function getFriendlyError(err) {
   if (msg.includes('networkerror') || msg.includes('failed to fetch') || msg.includes('load failed'))
     return 'No internet connection. Please check your network.';
 
-  if (msg.includes('http error 429') || msg.includes('rate limit'))
+  if (msg.includes('429') || msg.includes('rate limit'))
     return 'Too many requests. Please wait a moment and try again.';
 
   if (msg.includes('http error 5') || msg.includes('service unavailable'))
@@ -13,7 +13,7 @@ function getFriendlyError(err) {
   if (msg.includes('http error 4'))
     return 'Could not reach translation service. Try again later.';
 
-  if (msg.includes('translation failed') || msg.includes('mymemory'))
+  if (msg.includes('translation failed'))
     return 'Translation failed. Try again or check your language settings.';
 
   if (msg.includes('empty text') || msg.includes('no text'))
